@@ -352,20 +352,19 @@ export default class AbstractExternalIssueForm<
                   }))
                   .map(field => {
                     return (
-                      <React.Fragment key={`${field.name}`}>
+                      <React.Fragment
+                        key={`${field.name}-${field.default}-${field.required}`}
+                      >
                         <FieldFromConfig
                           disabled={this.state.reloading}
                           field={field}
                           flexibleControlStateSize
                           inline={false}
-                          key={`${field.name}-${field.default}-${field.required}`}
                           stacked
                           {...this.getFieldProps(field)}
                         />
                         {errors.find(e => e === field.name) ? (
-                          <FieldErrorLabel
-                            key={`${field.name}-error`}
-                          >{`Could not fetch saved option for ${field.label}. Please reselect.`}</FieldErrorLabel>
+                          <FieldErrorLabel>{`Could not fetch saved option for ${field.label}. Please reselect.`}</FieldErrorLabel>
                         ) : null}
                       </React.Fragment>
                     );
