@@ -3,7 +3,6 @@ import TextareaAutosize from 'react-autosize-textarea';
 import styled from '@emotion/styled';
 import moment from 'moment';
 
-import FeatureBadge from 'sentry/components/featureBadge';
 import {Panel, PanelBody, PanelHeader} from 'sentry/components/panels';
 import {IconGithub, IconGitlab, IconSentry} from 'sentry/icons';
 import {inputStyles} from 'sentry/styles/input';
@@ -60,7 +59,6 @@ function RulesPanel({
             {renderIcon()}
             <Title>{renderTitle()}</Title>
             {repoName && <Repository>{`- ${repoName}`}</Repository>}
-            <FeatureBadge type="new" />
           </Container>,
           <Container key="control">
             <SyncDate>
