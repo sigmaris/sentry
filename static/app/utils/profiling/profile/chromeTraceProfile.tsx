@@ -77,7 +77,7 @@ function getNextQueue(
   return 'B';
 }
 
-function buildProfile(
+function buildArrayProfile(
   processId: string,
   threadId: string,
   events: ChromeTrace.Event[]
@@ -265,7 +265,7 @@ export function parseChromeTraceArrayFormat(
         options?.transaction,
         () =>
           profiles.push(
-            buildProfile(
+            buildArrayProfile(
               processId,
               threadId,
               eventsByProcessAndThreadID[processId][threadId] ?? []
