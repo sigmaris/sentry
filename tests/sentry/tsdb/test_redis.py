@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 import pytest
 import pytz
+import rb
 
 from sentry.testutils import TestCase
 from sentry.tsdb.base import ONE_DAY, ONE_HOUR, ONE_MINUTE, TSDBModel
@@ -39,8 +40,13 @@ class RedisTSDBTest(TestCase):
             ),
             vnodes=64,
             enable_frequency_sketches=True,
-            hosts={i - 6: {"db": i} for i in range(6, 9)},
         )
+        # the `hosts` option (which manually configures the cluster) is deprecated for automatic
+        # cluster management, so we force a multi-host cluster here
+        self.db.cluster = rb.Cluster(hosts={i - 6: {"db": i} for i in range(6, 9)})
+
+        # the point of this test is to demonstrate behaviour with a multi-host cluster
+        assert len(self.db.cluster.hosts) == 3
 
     def tearDown(self):
         with self.db.cluster.all() as client:
